@@ -21,8 +21,34 @@ https://www.zhihu.com/question/52895544
 /** 抽出四个球的组合结果对应的签编号 */
 var ballsResultToSignNum map[string]int
 
-/** 签编号对应的球队ID */
-var signNumToTeamId map[int]int
+type draft struct {
+	/** 签编号对应的球队ID */
+	signNumToTeamId map[int]int
+}
+
+func NewDraft(weightArr [14]int) *draft {
+	allWeight := 0
+	st := make(map[int]int)
+
+	//TODO 随机签号分配给球队
+	for num, weight := range weightArr {
+		for i := 0; i < weight; i++ {
+			st[i+1+allWeight] = num + 1
+		}
+		allWeight = allWeight + weight
+	}
+	fmt.Printf("全部权重总量：%v\n", allWeight)
+	fmt.Printf("第1000签号对应的球队ID：%v\n", st[1000])
+	fmt.Printf("第1签号对应的球队ID：%v\n", st[1])
+	fmt.Printf("第250签号对应的球队ID：%v\n", st[250])
+	fmt.Printf("第251签号对应的球队ID：%v\n", st[251])
+	fmt.Printf("第995签号对应的球队ID：%v\n", st[995])
+	fmt.Printf("第996签号对应的球队ID：%v\n", st[996])
+
+	return &draft{
+		signNumToTeamId: st,
+	}
+}
 
 func init() {
 
@@ -77,32 +103,13 @@ func init() {
 	fmt.Printf("第1000个组合：%v\n", allResult[999])
 	fmt.Printf("第1000个组合的签号：%v\n", ballsResultToSignNum[allResult[999]])
 
-	weightArr := [14]int{250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5}
-	allWeight := 0
-	signNumToTeamId = make(map[int]int)
-
-	//TODO 随机签号分配给球队
-	for num, weight := range weightArr {
-		for i := 0; i < weight; i++ {
-			signNumToTeamId[i+1+allWeight] = num + 1
-		}
-		allWeight = allWeight + weight
-	}
-	fmt.Printf("全部权重总量：%v\n", allWeight)
-	fmt.Printf("第1000签号对应的球队ID：%v\n", signNumToTeamId[1000])
-	fmt.Printf("第1签号对应的球队ID：%v\n", signNumToTeamId[1])
-	fmt.Printf("第250签号对应的球队ID：%v\n", signNumToTeamId[250])
-	fmt.Printf("第251签号对应的球队ID：%v\n", signNumToTeamId[251])
-	fmt.Printf("第995签号对应的球队ID：%v\n", signNumToTeamId[995])
-	fmt.Printf("第996签号对应的球队ID：%v\n", signNumToTeamId[996])
-
 	fmt.Println("----------------数据初始化------------------")
 
 }
 
 var rr = rand.New(rand.NewSource(time.Now().Unix()))
 
-func Pick() string {
+func (d *draft) Pick() string {
 	/** 全部球14个 */
 	allBalls := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
 
@@ -121,16 +128,16 @@ func Pick() string {
 
 	if result == "11-12-13-14" {
 		/** 递归重抽 */
-		return Pick()
+		return d.Pick()
 	}
 
 	return result
 }
 
-func TeamId(pickResult string) int {
-	return signNumToTeamId[ballsResultToSignNum[pickResult]]
+func (d *draft) TeamId(pickResult string) int {
+	return d.signNumToTeamId[ballsResultToSignNum[pickResult]]
 }
 
-func PickTeamId() int {
-	return TeamId(Pick())
+func (d *draft) PickTeamId() int {
+	return d.TeamId(d.Pick())
 }
