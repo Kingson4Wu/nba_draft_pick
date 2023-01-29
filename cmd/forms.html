@@ -3,11 +3,11 @@
 <form action="reset" method="POST">
     <input value='reset' type="submit">
 </form>
+<div>{{ .Result }}</div>
 {{else}}
 <h1>NBA Draft</h1>
 <form action="pick" method="POST">
-   <!-- <label>Email:</label><br />
-    <input type="text" name="email"><br />-->
     <input value='pick' type="submit">
 </form>
+<div>{{ .Images }}</div>
 {{end}}

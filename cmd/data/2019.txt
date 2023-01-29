@@ -1,0 +1,14 @@
+knicks
+cavaliers
+suns
+bulls
+hawks
+wizards
+pelicans
+grizzlies
+mavericks
+timberwolves
+lakers
+hornets
+heat
+celtics

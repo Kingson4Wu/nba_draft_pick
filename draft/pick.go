@@ -30,20 +30,20 @@ func NewDraft(weightArr [14]int) *draft {
 	allWeight := 0
 	st := make(map[int]int)
 
-	//TODO 随机签号分配给球队
 	for num, weight := range weightArr {
 		for i := 0; i < weight; i++ {
 			st[i+1+allWeight] = num + 1
 		}
 		allWeight = allWeight + weight
 	}
-	fmt.Printf("全部权重总量：%v\n", allWeight)
-	fmt.Printf("第1000签号对应的球队ID：%v\n", st[1000])
-	fmt.Printf("第1签号对应的球队ID：%v\n", st[1])
-	fmt.Printf("第250签号对应的球队ID：%v\n", st[250])
-	fmt.Printf("第251签号对应的球队ID：%v\n", st[251])
-	fmt.Printf("第995签号对应的球队ID：%v\n", st[995])
-	fmt.Printf("第996签号对应的球队ID：%v\n", st[996])
+	fmt.Printf("参与抽签球队权重总量：%v\n", allWeight)
+	fmt.Println("-----------------------------------")
+	//fmt.Printf("第1000签号对应的球队ID：%v\n", st[1000])
+	//fmt.Printf("第1签号对应的球队ID：%v\n", st[1])
+	//fmt.Printf("第250签号对应的球队ID：%v\n", st[250])
+	//fmt.Printf("第251签号对应的球队ID：%v\n", st[251])
+	//fmt.Printf("第995签号对应的球队ID：%v\n", st[995])
+	//fmt.Printf("第996签号对应的球队ID：%v\n", st[996])
 
 	return &draft{
 		signNumToTeamId: st,
@@ -52,7 +52,7 @@ func NewDraft(weightArr [14]int) *draft {
 
 func init() {
 
-	fmt.Println("----------------数据初始化------------------")
+	fmt.Println("----------------初始化四个球组合和签好对应关系------------------")
 
 	/** 14个球 */
 	n := 14
@@ -103,7 +103,7 @@ func init() {
 	fmt.Printf("第1000个组合：%v\n", allResult[999])
 	fmt.Printf("第1000个组合的签号：%v\n", ballsResultToSignNum[allResult[999]])
 
-	fmt.Println("----------------数据初始化------------------")
+	fmt.Println("----------------初始化四个球组合和签好对应关系------------------")
 
 }
 
