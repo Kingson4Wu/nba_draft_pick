@@ -1,8 +1,8 @@
-package nbadraft_test
+package draft_test
 
 import (
 	"fmt"
-	"nba_draft_pick/nbadraft"
+	"nba_draft_pick/draft"
 	"testing"
 )
 
@@ -10,7 +10,7 @@ import (
 func TestFirstPick(t *testing.T) {
 	fmt.Println("模拟抽签---")
 
-	d := nbadraft.NewDraft([14]int{250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5})
+	d := draft.NewDraft([14]int{250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5})
 
 	firstPick(func() int {
 		return d.PickTeamId()
@@ -51,7 +51,7 @@ func firstPick(pickTeamId func() int) {
 /** 抽三次 */
 func TestThreePick(t *testing.T) {
 
-	d := nbadraft.NewDraft([14]int{250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5})
+	d := draft.NewDraft([14]int{250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5})
 	/**
 	模拟前三顺位
 	*/
@@ -112,7 +112,7 @@ func threePick(pickTeamId func() int) {
 func TestFirstPick2019(t *testing.T) {
 	fmt.Println("2019模拟抽签---")
 
-	d := nbadraft.NewDraft([14]int{140, 140, 140, 125, 105, 90, 60, 60, 60, 30, 20, 10, 10, 10})
+	d := draft.NewDraft([14]int{140, 140, 140, 125, 105, 90, 60, 60, 60, 30, 20, 10, 10, 10})
 
 	firstPick(func() int {
 		return d.PickTeamId()
@@ -138,7 +138,7 @@ func TestFirstPick2019(t *testing.T) {
 
 func TestThreePick2019(t *testing.T) {
 
-	d := nbadraft.NewDraft([14]int{140, 140, 140, 125, 105, 90, 60, 60, 60, 30, 20, 10, 10, 10})
+	d := draft.NewDraft([14]int{140, 140, 140, 125, 105, 90, 60, 60, 60, 30, 20, 10, 10, 10})
 
 	threePick(func() int {
 		return d.PickTeamId()
@@ -192,4 +192,14 @@ func TestThreePick2019(t *testing.T) {
 	13 -> 12479
 	14 -> 12618
 	*/
+}
+
+func TestNewRoundResult(t *testing.T) {
+	d := draft.NewDraft([14]int{250, 199, 156, 119, 88, 63, 43, 28, 17, 11, 8, 7, 6, 5})
+	r := d.NewRoundResult()
+	fmt.Println(r)
+
+	d2019 := draft.NewDraft([14]int{140, 140, 140, 125, 105, 90, 60, 60, 60, 30, 20, 10, 10, 10})
+	r2019 := d2019.NewRoundResult()
+	fmt.Println(r2019)
 }

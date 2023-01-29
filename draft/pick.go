@@ -1,4 +1,4 @@
-package nbadraft
+package draft
 
 import (
 	"fmt"
@@ -140,4 +140,37 @@ func (d *draft) TeamId(pickResult string) int {
 
 func (d *draft) PickTeamId() int {
 	return d.TeamId(d.Pick())
+}
+
+func (d *draft) NewRoundResult() [14]int {
+	result := [14]int{}
+
+	hitMap := make(map[int]bool)
+	for i := 0; i < 3; i++ {
+		teamId := d.PickTeamId()
+
+		/** 这个球队本轮已经抽中过，需要重抽 */
+		if _, ok := hitMap[teamId]; ok {
+			i--
+			continue
+		}
+		hitMap[teamId] = true
+		result[i] = teamId
+	}
+
+	j := 1
+	for i := 3; i < 14; i++ {
+		for {
+			if _, ok := hitMap[j]; ok {
+				j++
+			} else {
+				break
+			}
+		}
+		result[i] = j
+		j++
+	}
+
+	return result
+
 }
