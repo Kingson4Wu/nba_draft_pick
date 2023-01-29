@@ -25,7 +25,7 @@ var data embed.FS
 
 func main() {
 	d := [14]int{140, 140, 140, 125, 105, 90, 60, 60, 60, 30, 20, 10, 10, 10}
-	d2019 := draft.NewDraft(d)
+	draft := draft.NewDraft(d)
 
 	tmpl := template.Must(template.ParseFS(f, "forms.html"))
 
@@ -49,15 +49,16 @@ func main() {
 
 	http.HandleFunc("/pick", func(w http.ResponseWriter, r *http.Request) {
 
-		r2019 := d2019.NewRoundResult()
-		fmt.Println(r2019)
+		rt := draft.NewRoundResult()
+		//fmt.Println(r)
 
 		var results string
 		for i := 0; i < 14; i++ {
-			b, _ := photos.ReadFile("photos/" + teams[r2019[i]-1] + ".png")
+			index := rt[i] - 1
+			b, _ := photos.ReadFile("photos/" + teams[index] + ".png")
 			res := base64.StdEncoding.EncodeToString(b)
 			results = results + "<img src=\"data:image/png;base64," + res + "\">"
-			results = results + "<div>" + teams[r2019[i]-1] + "(" + fmt.Sprintf("%.2f", float64(d[r2019[i]-1])/float64(10)) + "%)</div>"
+			results = results + "<div>" + teams[index] + "(" + fmt.Sprintf("%.2f", float64(d[index])/float64(10)) + "%)</div>"
 		}
 
 		tmpl.Execute(w, struct {
@@ -65,7 +66,7 @@ func main() {
 			Content string
 			Result  template.HTML
 		}{true,
-			fmt.Sprintf("%v", r2019), template.HTML(results)})
+			fmt.Sprintf("%v", rt), template.HTML(results)})
 	})
 
 	http.HandleFunc("/reset", func(w http.ResponseWriter, r *http.Request) {
