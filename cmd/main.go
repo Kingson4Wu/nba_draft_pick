@@ -76,5 +76,5 @@ func main() {
 		}{false, template.HTML(images)})
 	})
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8988", nil)
 }
