@@ -1,4 +1,11 @@
+# NBA Draft Pick
 
+[![CodeSize](https://img.shields.io/github/languages/code-size/Kingson4Wu/nba_draft_pick)](https://github.com/Kingson4Wu/nba_draft_pick)
+[![LICENSE](https://img.shields.io/badge/license-MIT-green)](https://mit-license.org/)
+
+<details>
+<summary><strong>README 中文版本</strong></summary>
+<div>
 
 ## 本地启动
 + `go run cmd/main.go`
@@ -17,3 +24,25 @@
 + `sh upload.sh` 上传
 + `sh run.sh` 运行
 + 目前部署在家庭网络小型服务器，使用ngork代理到外网
+
+</div>
+</details>
+
+## Local deployment
++ `go run cmd/main.go`
++ access http://127.0.0.1:8080/
+
+## Project introduction
++ Simulate the draft lottery process and experience the results through a web page.
++ Use github.com/PuerkitoBio/goquery to grab image data of NBA teams.
+
+## Experience address
++ https://cc24-120-230-98-139.ngrok.io/
++ If the address is unavailable, send "nba draft" to the WeChat public account "拉巴力不吃三文鱼" to obtain the latest experience address.
+
+## Deployment status
++ `sh make.sh` to generate executable files.
++ `sh upload.sh` to upload.
++ `sh run.sh` to run.
+
++ Currently deployed on a small home network server, using ngrok to proxy to the external network.
